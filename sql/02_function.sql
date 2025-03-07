@@ -2,9 +2,15 @@
  * Find the actor_id of every actor whose first name starts with the indicated string.
  * Order the results from low to hi.
  */
-CREATE OR REPLACE FUNCTION get_actor_ids(text) RETURNS TABLE(actor_id INTEGER) AS
+
+-- create or replace - if this function has been created, it tries to replace it 
+-- otherwise, it simply creates the function 
+-- function declaration get_actor_ids(text) returns table(actor_id integer) includes both input (text - a type) and output (actor_id - alias, INTEGER - type) 
+CREATE OR REPLACE FUNCTION get_actor_ids(prefix TEXT) RETURNS TABLE(actor_id INTEGER) AS
 $$
--- FIXME: implementation goes here
+select actor_id
+from actor 
+where first_name ilike prefix|| '%'
 $$
 LANGUAGE SQL
 IMMUTABLE
